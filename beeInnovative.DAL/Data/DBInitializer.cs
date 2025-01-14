@@ -27,7 +27,7 @@ namespace beeInnovative.DAL.Data
                 BeehiveName = "Beehive1",
                 Latitude = 12.3456f,
                 Longitude = 78.9012f,
-                IotId = 1,
+                IotId = "1",
             };
 
             Beehive b2 = new Beehive()
@@ -36,7 +36,7 @@ namespace beeInnovative.DAL.Data
                 BeehiveName = "Beehive2",
                 Latitude = 23.4567f,
                 Longitude = 89.0123f,
-                IotId = 2,
+                IotId = "2",
             };
 
             context.Add(b1);

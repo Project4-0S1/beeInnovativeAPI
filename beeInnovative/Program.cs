@@ -1,6 +1,13 @@
+using beeInnovative.DAL.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString
+    = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<BeeInnovativeContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -14,6 +21,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var myContext = scope.ServiceProvider.GetRequiredService<BeeInnovativeContext>();
+    DBInitializer.Initialize(myContext);
 }
 
 app.UseHttpsRedirection();

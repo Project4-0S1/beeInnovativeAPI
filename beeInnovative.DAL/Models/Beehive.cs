@@ -12,7 +12,7 @@ namespace beeInnovative.DAL.Models
         public string BeehiveName { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
-        public int IotId { get; set; }
+        public string IotId { get; set; }
 
         public ICollection<HornetDetection>? HornetDetections { get; set; }
     }

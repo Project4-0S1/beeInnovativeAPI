@@ -80,6 +80,15 @@ namespace beeInnovative.Controllers
         [HttpPost]
         public async Task<ActionResult<Beehive>> PostBeehive(Beehive beehive)
         {
+            IEnumerable<Beehive> beehivesList = await _uow.BeehiveRepository.GetAllAsync();
+
+            foreach(Beehive beehiveOne in beehivesList)
+            {
+                if (beehiveOne.IotId == beehive.IotId) { 
+                    return BadRequest();
+                }
+            }
+
             _uow.BeehiveRepository.Insert(beehive);
             await _uow.SaveAsync();
 

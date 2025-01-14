@@ -23,7 +23,7 @@ namespace beeInnovative.DAL.Data
             //Add Beehives
             Beehive b1 = new Beehive()
             {
-                Id = 1,
+                //Id = 1,
                 BeehiveName = "Beehive1",
                 Latitude = 12.3456f,
                 Longitude = 78.9012f,
@@ -32,7 +32,7 @@ namespace beeInnovative.DAL.Data
 
             Beehive b2 = new Beehive()
             {
-                Id = 2,
+                //Id = 2,
                 BeehiveName = "Beehive2",
                 Latitude = 23.4567f,
                 Longitude = 89.0123f,
@@ -45,13 +45,13 @@ namespace beeInnovative.DAL.Data
             //Add Colors
             Color c1 = new Color()
             {
-                Id = 1,
+                //Id = 1,
                 ColorName = "red",
             };
 
             Color c2 = new Color()
             {
-                Id = 2,
+                //Id = 2,
                 ColorName = "Blue",
             };
 
@@ -61,13 +61,13 @@ namespace beeInnovative.DAL.Data
             //Add Hornets
             Hornet h1 = new Hornet()
             {
-                Id = 1,
+                //Id = 1,
                 ColorId = 1
             };
 
             Hornet h2 = new Hornet()
             {
-                Id = 2,
+                //Id = 2,
                 ColorId = 2
             };
 
@@ -78,13 +78,13 @@ namespace beeInnovative.DAL.Data
             //Add Users
             User u1 = new User()
             {
-                Id = 1,
+                //Id = 1,
                 UserSubTag = "User1",
             };
 
             User u2 = new User()
             {
-                Id = 2,
+                //Id = 2,
                 UserSubTag = "User2",
             };
 
@@ -94,14 +94,14 @@ namespace beeInnovative.DAL.Data
             //Add UserBeehives
             UserBeehive ub1 = new UserBeehive()
             {
-                Id = 1,
+                //Id = 1,
                 BeehiveId = 1,
                 UserId = 1
             };
 
             UserBeehive ub2 = new UserBeehive()
             {
-                Id = 2,
+                //Id = 2,
                 BeehiveId = 2,
                 UserId = 2,
             };
@@ -112,7 +112,7 @@ namespace beeInnovative.DAL.Data
             //Add NestLocations
             NestLocation nl1 = new NestLocation()
             {
-                Id = 1,
+                //Id = 1,
                 EstimatedLatitude = 12.3456f,
                 EstimatedLongitude = 78.9012f,
                 HornetId = 1,
@@ -120,7 +120,7 @@ namespace beeInnovative.DAL.Data
 
             NestLocation nl2 = new NestLocation()
             {
-                Id = 2,
+                //Id = 2,
                 EstimatedLatitude = 23.4567f,
                 EstimatedLongitude = 89f,
                 HornetId = 2,

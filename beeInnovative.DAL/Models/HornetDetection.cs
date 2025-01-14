@@ -8,7 +8,7 @@ namespace beeInnovative.DAL.Models
 {
     public class HornetDetection
     {
-        public int HornetDetectionId { get; set; }
+        public int Id { get; set; }
         public DateTime DetectionTimestamp { get; set; }
         public bool IsMarked {  get; set; }
         public int Direction { get; set; }

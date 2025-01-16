@@ -24,18 +24,18 @@ namespace beeInnovative.DAL.Data
             Beehive b1 = new Beehive()
             {
                 //Id = 1,
-                BeehiveName = "Beehive1",
-                Latitude = 12.3456f,
-                Longitude = 78.9012f,
+                BeehiveName = "De C",
+                Latitude = 51.164120751116435f,
+                Longitude = 4.961838518509023f,
                 IotId = "1",
             };
 
             Beehive b2 = new Beehive()
             {
                 //Id = 2,
-                BeehiveName = "Beehive2",
-                Latitude = 23.4567f,
-                Longitude = 89.0123f,
+                BeehiveName = "Pizza Hut",
+                Latitude = 51.14956154963047f,
+                Longitude = 4.964806904144326f,
                 IotId = "2",
             };
 
@@ -46,7 +46,7 @@ namespace beeInnovative.DAL.Data
             Color c1 = new Color()
             {
                 //Id = 1,
-                ColorName = "red",
+                ColorName = "Red",
             };
 
             Color c2 = new Color()
@@ -113,16 +113,16 @@ namespace beeInnovative.DAL.Data
             NestLocation nl1 = new NestLocation()
             {
                 //Id = 1,
-                EstimatedLatitude = 12.3456f,
-                EstimatedLongitude = 78.9012f,
+                EstimatedLatitude = 51.16080291398481f,
+                EstimatedLongitude = 4.9644732260095275f,
                 HornetId = 1,
             };
 
             NestLocation nl2 = new NestLocation()
             {
                 //Id = 2,
-                EstimatedLatitude = 23.4567f,
-                EstimatedLongitude = 89f,
+                EstimatedLatitude = 51.170209175807024f,
+                EstimatedLongitude = 4.968067403732371f,
                 HornetId = 2,
             };
             context.Add(nl1);

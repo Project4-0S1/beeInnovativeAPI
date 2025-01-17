@@ -1,0 +1,38 @@
+name: Deploy .NET Core API to Azure App Service
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch if needed
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up .NET
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0  # Adjust version to match your project
+
+    # Build the .NET project
+    - name: Build project
+      run: dotnet build ./beeInnovative/beeInnovative.csproj --configuration Release
+
+    # Publish the .NET project
+    - name: Publish project
+      run: dotnet publish ./beeInnovative/beeInnovative.csproj -c Release -o ./publish
+
+    # Deploy to Azure Web App
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: <YOUR_WEB_APP_NAME>  # Replace with your Azure Web App name
+        slot-name: production
+        publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
+        package: ./publish

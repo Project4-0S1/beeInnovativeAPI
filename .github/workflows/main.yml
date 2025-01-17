@@ -19,7 +19,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0.10  # Adjust version to match your project
+        dotnet-version: 8.0  # Adjust version to match your project
 
     # Build the .NET project
     - name: Build project

@@ -49,17 +49,17 @@
           "contentVersion": "1.0.0.0",
           "resources": [
             {
-              "name": "beeInnovativeapi",
+              "name": "beeInnovativeWebApi",
               "type": "Microsoft.ApiManagement/service",
               "location": "[parameters('resourceLocation')]",
               "properties": {
-                "publisherEmail": "r0956231@student.thomasmore.be",
-                "publisherName": "Jorrit Geurts",
+                "publisherEmail": "r0736361@student.thomasmore.be",
+                "publisherName": "Toon Van Dyck",
                 "notificationSenderEmail": "apimgmt-noreply@mail.windowsazure.com",
                 "hostnameConfigurations": [
                   {
                     "type": "Proxy",
-                    "hostName": "beeinnovativeapi.azure-api.net",
+                    "hostName": "beeinnovativewebapi.azure-api.net",
                     "encodedCertificate": null,
                     "keyVaultId": null,
                     "certificatePassword": null,
@@ -95,7 +95,7 @@
             },
             {
               "type": "Microsoft.ApiManagement/service/apis",
-              "name": "beeInnovativeapi/beeInnovative",
+              "name": "beeInnovativeWebApi/beeInnovative",
               "properties": {
                 "displayName": "beeInnovative",
                 "apiRevision": "1",
@@ -118,7 +118,7 @@
               },
               "apiVersion": "2019-12-01",
               "dependsOn": [
-                "beeInnovativeapi"
+                "beeInnovativeWebApi"
               ]
             }
           ]

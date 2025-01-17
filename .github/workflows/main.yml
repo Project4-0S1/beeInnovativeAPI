@@ -1,10 +1,10 @@
-name: Deploy .NET Core API to Azure App Service
+name: Deploy .NET Core API to Azure Functions
 
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
-  workflow_dispatch:  # Allow manual trigger
+      - main
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   build-and-deploy:
@@ -15,25 +15,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Set up .NET
-    - name: Set up .NET
+    # Set up .NET SDK
+    - name: Set up .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0  # Adjust version to match your project
+        dotnet-version: 8.0  # Make sure to use the correct version
 
     # Build the .NET project
     - name: Build project
       run: dotnet build ./beeInnovative/beeInnovative.csproj --configuration Release
 
-    # Publish the .NET project
+    # Publish the .NET project for Azure Functions
     - name: Publish project
       run: dotnet publish ./beeInnovative/beeInnovative.csproj -c Release -o ./publish
 
-    # Deploy to Azure Web App
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+    # Deploy to Azure Functions
+    - name: Deploy to Azure Functions
+      uses: Azure/functions-action@v1
       with:
-        app-name: main-deploy  # Replace with your Azure Web App name
-        slot-name: production
+        app-name: repo-main  # Replace with your Azure Functions app name
         publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
         package: ./publish

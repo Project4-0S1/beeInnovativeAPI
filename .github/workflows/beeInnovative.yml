@@ -46,7 +46,7 @@ jobs:
     - name: Generate Open API Specification Document
       run: |
         echo "Checking for DLL file: ${{ env.API_IMPORT_DLL }}"
-        if [ ! -f "${{ env.API_IMPORT_DLL }}" ]; then
+        if ( ! -f "${{ env.API_IMPORT_DLL }}" ); then
           echo "Error: DLL file not found at '${{ env.API_IMPORT_DLL }}'"
           exit 1
         fi

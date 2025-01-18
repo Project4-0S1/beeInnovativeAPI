@@ -46,8 +46,8 @@ jobs:
     - name: Generate Open API Specification Document
       run: |
         Write-Host "Checking for DLL file: $env:API_IMPORT_DLL"
-        if (!(Test-Path -Path $env:API_IMPORT_DLL)) {
-          Write-Error "Error: DLL file not found at '$env:API_IMPORT_DLL'"
+        if (!(Test-Path -Path beeInnovative\bin\Release\net8.0\beeInnovative.dll)) {
+          Write-Error "Error: DLL file not found at 'beeInnovative\bin\Release\net8.0\beeInnovative.dll'"
           exit 1
         }
         Write-Host "Generating Open API Specification..."

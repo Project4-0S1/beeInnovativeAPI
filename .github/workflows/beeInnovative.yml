@@ -43,6 +43,9 @@ jobs:
     - name: Install Swashbuckle CLI .NET Global Tool
       run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
+    - name: Restore
+      run: dotnet tool restore
+      working-directory: ${{ env.WORKING_DIRECTORY }}
     - name: Generate Swagger JSON
       run: dotnet swagger tofile --output beeInnovative\publish\swagger.json beeInnovative.dll v1
       working-directory: ${{ env.WORKING_DIRECTORY }}

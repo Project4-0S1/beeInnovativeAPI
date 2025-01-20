@@ -15,6 +15,7 @@ env:
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_DLL: beeInnovative\bin\Release\net8.0\beeInnovative.dll
   API_IMPORT_VERSION: v1
+  API_IMPORT_SPECIFICATION_PATH: beeInnovative\publish\swagger.json
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: beeInnovative

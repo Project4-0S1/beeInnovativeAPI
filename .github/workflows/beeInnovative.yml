@@ -47,7 +47,7 @@ jobs:
       run: dotnet tool restore
       working-directory: ${{ env.WORKING_DIRECTORY }}
     - name: Generate Swagger JSON
-      run: dotnet swagger tofile --output beeInnovative\publish\swagger.json beeInnovative.dll v1
+      run: dotnet swagger tofile --output beeInnovative\publish\swagger.json beeInnovative\bin\Release\net8.0\beeInnovative.dll v1
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
     - name: Publish Artifacts

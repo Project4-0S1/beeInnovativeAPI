@@ -27,7 +27,7 @@ namespace beeInnovative.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HornetDetection>>> GetHornetDetections()
         {
-            var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync();
+            var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync(hd => hd.Hornet);
             return hornetDetections.ToList();
         }
 

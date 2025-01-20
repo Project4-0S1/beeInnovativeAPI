@@ -27,7 +27,7 @@ namespace beeInnovative.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserBeehive>>> GetUserBeehives()
         {
-            var userBeehives = await _uow.UserBeehiveRepository.GetAllAsync();
+            var userBeehives = await _uow.UserBeehiveRepository.GetAllAsync(ub => ub.Beehive, ub => ub.User);
             return userBeehives.ToList();
         }
 

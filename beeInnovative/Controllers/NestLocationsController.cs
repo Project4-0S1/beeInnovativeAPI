@@ -27,7 +27,7 @@ namespace beeInnovative.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NestLocation>>> GetNestLocations()
         {
-            var nestLocations = await _uow.NestLocationRepository.GetAllAsync();
+            var nestLocations = await _uow.NestLocationRepository.GetAllAsync(n => n.Hornet);
             return nestLocations.ToList();
         }
 

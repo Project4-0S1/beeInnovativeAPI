@@ -24,11 +24,11 @@ namespace beeInnovative.Controllers
 
         // GET: api/Beehives
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<Beehive>>> GetBeehives()
-        //{
-        //    var beehives = await _uow.BeehiveRepository.GetAllAsync();
-        //    return beehives.ToList();
-        //}
+        public async Task<ActionResult<IEnumerable<Beehive>>> GetBeehives()
+        {
+            var beehives = await _uow.BeehiveRepository.GetAllAsync();
+            return beehives.ToList();
+        }
 
         // GET: api/Beehives/5
         [HttpGet("{id}")]

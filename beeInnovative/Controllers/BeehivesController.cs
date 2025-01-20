@@ -26,7 +26,7 @@ namespace beeInnovative.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Beehive>>> GetBeehives()
         {
-            var beehives = await _uow.BeehiveRepository.GetAllAsync();
+            var beehives = await _uow.BeehiveRepository.GetAllAsync(b => b.HornetDetections);
             return beehives.ToList();
         }
 

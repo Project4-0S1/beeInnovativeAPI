@@ -43,16 +43,16 @@ jobs:
     - name: Install Swashbuckle CLI .NET Global Tool
       run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
-    - name: Generate Open API Specification Document
-      run: |
-        Write-Host "Checking for DLL file: $env:API_IMPORT_DLL"
-        if (!(Test-Path -Path beeInnovative\bin\Release\net8.0\beeInnovative.dll)) {
-          Write-Error "Error: DLL file not found at 'beeInnovative\bin\Release\net8.0\beeInnovative.dll'"
-          exit 1
-        }
-        Write-Host "Generating Open API Specification..."
-        swagger tofile --output "$env:API_IMPORT_SPECIFICATION_PATH" "$env:API_IMPORT_DLL" "$env:API_IMPORT_VERSION" --startup "BeeInnovative.Program"
-      shell: pwsh
+    # - name: Generate Open API Specification Document
+    #   run: |
+    #     Write-Host "Checking for DLL file: $env:API_IMPORT_DLL"
+    #     if (!(Test-Path -Path beeInnovative\bin\Release\net8.0\beeInnovative.dll)) {
+    #       Write-Error "Error: DLL file not found at 'beeInnovative\bin\Release\net8.0\beeInnovative.dll'"
+    #       exit 1
+    #     }
+    #     Write-Host "Generating Open API Specification..."
+    #     swagger tofile --output "$env:API_IMPORT_SPECIFICATION_PATH" "$env:API_IMPORT_DLL" "$env:API_IMPORT_VERSION" --startup "BeeInnovative.Program"
+    # shell: pwsh
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:

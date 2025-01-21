@@ -58,8 +58,26 @@ namespace beeInnovative.DAL.Data
             context.Add(c1);
             context.Add(c2);
 
-            context.SaveChanges();
+            Status s2 = new Status()
+            {
+                type = "Detected"
+            };
 
+            Status s1 = new Status()
+            {
+                type = "Found"
+            };
+
+            Status s3 = new Status()
+            {
+                type = "Cleared"
+            };
+
+            context.Add(s2);
+            context.Add(s1);
+            context.Add(s3);
+
+            context.SaveChanges();
 
             //Add Hornets
             Hornet h1 = new Hornet()

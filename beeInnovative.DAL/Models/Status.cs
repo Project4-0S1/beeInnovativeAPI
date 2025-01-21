@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace beeInnovative.DAL.Models
 {
-    public class NestLocation
+    public class Status
     {
         public int Id { get; set; }
-        public int StatusId { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public string type { get; set; }
 
-        public Status? status { get; set; }
-
+        public ICollection<NestLocation>? nestLocation { get; set; }
     }
 }

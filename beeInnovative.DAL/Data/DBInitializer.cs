@@ -58,6 +58,9 @@ namespace beeInnovative.DAL.Data
             context.Add(c1);
             context.Add(c2);
 
+            context.SaveChanges();
+
+
             //Add Hornets
             Hornet h1 = new Hornet()
             {
@@ -73,6 +76,8 @@ namespace beeInnovative.DAL.Data
 
             context.Add(h1);
             context.Add(h2);
+
+            context.SaveChanges();
 
 
             //Add Users
@@ -110,7 +115,7 @@ namespace beeInnovative.DAL.Data
             context.Add(ub2);
 
             //Add NestLocations
-            NestLocation nl1 = new NestLocation()
+            EstimatedNestLocation nl1 = new EstimatedNestLocation()
             {
                 //Id = 1,
                 EstimatedLatitude = 51.16080291398481f,
@@ -118,7 +123,7 @@ namespace beeInnovative.DAL.Data
                 HornetId = 1,
             };
 
-            NestLocation nl2 = new NestLocation()
+            EstimatedNestLocation nl2 = new EstimatedNestLocation()
             {
                 //Id = 2,
                 EstimatedLatitude = 51.170209175807024f,

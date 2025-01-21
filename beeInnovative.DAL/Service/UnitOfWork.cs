@@ -16,7 +16,9 @@ namespace beeInnovative.DAL
         private GenericRepository<Color> colorRepository;
         private GenericRepository<Hornet> hornetRepository;
         private GenericRepository<HornetDetection> hornetDetectionRepository;
+        private GenericRepository<Status> statusRepository;
         private GenericRepository<NestLocation> nestLocationRepository;
+        private GenericRepository<EstimatedNestLocation> estimatedNestLocationRepository;
         private GenericRepository<User> userRepository;
         private GenericRepository<UserBeehive> userBeehiveRepository;
 
@@ -73,6 +75,18 @@ namespace beeInnovative.DAL
             }
         }
 
+        public GenericRepository<Status> StatusRepository
+        {
+            get
+            {
+                if (statusRepository == null)
+                {
+                    statusRepository = new GenericRepository<Status>(_context);
+                }
+                return statusRepository;
+            }
+        }
+
         public GenericRepository<NestLocation> NestLocationRepository
         {
             get
@@ -82,6 +96,18 @@ namespace beeInnovative.DAL
                     nestLocationRepository = new GenericRepository<NestLocation>(_context);
                 }
                 return nestLocationRepository;
+            }
+        }
+
+        public GenericRepository<EstimatedNestLocation> EstimatedNestLocationRepository
+        {
+            get
+            {
+                if (estimatedNestLocationRepository == null)
+                {
+                    estimatedNestLocationRepository = new GenericRepository<EstimatedNestLocation>(_context);
+                }
+                return estimatedNestLocationRepository;
             }
         }
 

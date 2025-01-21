@@ -79,12 +79,12 @@ namespace beeInnovative.Controllers
         // POST: api/NestLocations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<EstimatedNestLocation>> PostEstimatedNestLocation(EstimatedNestLocation nestLocation)
+        public async Task<ActionResult<EstimatedNestLocation>> PostEstimatedNestLocation(EstimatedNestLocation estimatedNestLocation)
         {
-            _uow.EstimatedNestLocationRepository.Insert(nestLocation);
+            _uow.EstimatedNestLocationRepository.Insert(estimatedNestLocation);
             await _uow.SaveAsync();
 
-            return CreatedAtAction("GetNestLocation", new { id = nestLocation.Id }, nestLocation);
+            return CreatedAtAction("GetNestLocation", new { id = estimatedNestLocation.Id }, estimatedNestLocation);
         }
 
         // DELETE: api/NestLocations/5
@@ -97,7 +97,7 @@ namespace beeInnovative.Controllers
                 return NotFound();
             }
 
-            _uow.ColorRepository.Delete(id);
+            _uow.EstimatedNestLocationRepository.Delete(id);
             await _uow.SaveAsync();
 
             return NoContent();
@@ -105,7 +105,7 @@ namespace beeInnovative.Controllers
 
         private bool NestEstimatedLocationExists(int id)
         {
-            return _uow.ColorRepository.Get(e => e.Id == id).Any();
+            return _uow.EstimatedNestLocationRepository.Get(e => e.Id == id).Any();
         }
     }
 }

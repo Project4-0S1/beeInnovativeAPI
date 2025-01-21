@@ -79,7 +79,7 @@ namespace beeInnovative.Controllers
         // POST: api/NestLocations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<EstimatedNestLocation>> PostNestLocation(EstimatedNestLocation nestLocation)
+        public async Task<ActionResult<EstimatedNestLocation>> PostEstimatedNestLocation(EstimatedNestLocation nestLocation)
         {
             _uow.EstimatedNestLocationRepository.Insert(nestLocation);
             await _uow.SaveAsync();

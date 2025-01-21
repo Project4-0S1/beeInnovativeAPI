@@ -21,7 +21,9 @@ namespace beeInnovative.DAL.Data
         public DbSet<Color> Colors { get; set; }
         public DbSet<Hornet> Hornets { get; set; }
         public DbSet<HornetDetection> HornetDetections { get; set; }
-        public DbSet<NestLocation> NestLocations { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<NestLocation> NestLocation { get; set; }
+        public DbSet<EstimatedNestLocation> EstimatedNestLocation { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserBeehive> UserBeehives { get; set; }
 
@@ -31,7 +33,9 @@ namespace beeInnovative.DAL.Data
             modelBuilder.Entity<Color>().ToTable("Color");
             modelBuilder.Entity<Hornet>().ToTable("Hornet");
             modelBuilder.Entity<HornetDetection>().ToTable("HornetDetection");
+            modelBuilder.Entity<Status>().ToTable("Status");
             modelBuilder.Entity<NestLocation>().ToTable("NestLocation");
+            modelBuilder.Entity<EstimatedNestLocation>().ToTable("EstimatedNestLocation");
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<UserBeehive>().ToTable("UserBeehive");
         }

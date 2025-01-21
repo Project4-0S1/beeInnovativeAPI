@@ -8,33 +8,34 @@ using Microsoft.EntityFrameworkCore;
 using beeInnovative.DAL.Data;
 using beeInnovative.DAL.Models;
 using beeInnovative.DAL.Service;
+using System.Drawing;
 
 namespace beeInnovative.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NestLocationsController : ControllerBase
+    public class EstimatedNestLocationsController : ControllerBase
     {
         private IUnitOfWork _uow;
 
-        public NestLocationsController(IUnitOfWork uow)
+        public EstimatedNestLocationsController(IUnitOfWork uow)
         {
             _uow = uow;
         }
 
         // GET: api/NestLocations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<NestLocation>>> GetNestLocation()
+        public async Task<ActionResult<IEnumerable<EstimatedNestLocation>>> GetEstimatedNestLocations()
         {
-            var nestLocations = await _uow.NestLocationRepository.GetAllAsync();
+            var nestLocations = await _uow.EstimatedNestLocationRepository.GetAllAsync(n => n.Hornet);
             return nestLocations.ToList();
         }
 
         // GET: api/NestLocations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<NestLocation>> GetNestLocation(int id)
+        public async Task<ActionResult<EstimatedNestLocation>> GetEstimatedNestLocation(int id)
         {
-            var nestLocation = await _uow.NestLocationRepository.GetByIDAsync(id);
+            var nestLocation = await _uow.EstimatedNestLocationRepository.GetByIDAsync(id);
 
             if (nestLocation == null)
             {
@@ -47,14 +48,14 @@ namespace beeInnovative.Controllers
         // PUT: api/NestLocations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutNestLocation(int id, NestLocation nestLocation)
+        public async Task<IActionResult> PutEstimatedNestLocation(int id, EstimatedNestLocation nestLocation)
         {
             if (id != nestLocation.Id)
             {
                 return BadRequest();
             }
 
-            _uow.NestLocationRepository.Update(nestLocation);
+            _uow.EstimatedNestLocationRepository.Update(nestLocation);
 
             try
             {
@@ -62,7 +63,7 @@ namespace beeInnovative.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!NestLocationExists(id))
+                if (!NestEstimatedLocationExists(id))
                 {
                     return NotFound();
                 }
@@ -78,9 +79,9 @@ namespace beeInnovative.Controllers
         // POST: api/NestLocations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<NestLocation>> PostNestLocation(NestLocation nestLocation)
+        public async Task<ActionResult<EstimatedNestLocation>> PostEstimatedNestLocation(EstimatedNestLocation nestLocation)
         {
-            _uow.NestLocationRepository.Insert(nestLocation);
+            _uow.EstimatedNestLocationRepository.Insert(nestLocation);
             await _uow.SaveAsync();
 
             return CreatedAtAction("GetNestLocation", new { id = nestLocation.Id }, nestLocation);
@@ -88,23 +89,23 @@ namespace beeInnovative.Controllers
 
         // DELETE: api/NestLocations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteNestLocation(int id)
+        public async Task<IActionResult> DeleteEstimatedNestLocation(int id)
         {
-            var nestLocation = await _uow.NestLocationRepository.GetByIDAsync(id);
+            var nestLocation = await _uow.EstimatedNestLocationRepository.GetByIDAsync(id);
             if (nestLocation == null)
             {
                 return NotFound();
             }
 
-            _uow.NestLocationRepository.Delete(id);
+            _uow.ColorRepository.Delete(id);
             await _uow.SaveAsync();
 
             return NoContent();
         }
 
-        private bool NestLocationExists(int id)
+        private bool NestEstimatedLocationExists(int id)
         {
-            return _uow.NestLocationRepository.Get(e => e.Id == id).Any();
+            return _uow.ColorRepository.Get(e => e.Id == id).Any();
         }
     }
 }

@@ -15,7 +15,9 @@ namespace beeInnovative.DAL.Service
         GenericRepository<Color> ColorRepository { get; }
         GenericRepository<Hornet> HornetRepository { get; }
         GenericRepository<HornetDetection> HornetDetectionRepository { get; }
+        GenericRepository<Status> StatusRepository { get; }
         GenericRepository<NestLocation> NestLocationRepository { get; }
+        GenericRepository<EstimatedNestLocation> EstimatedNestLocationRepository { get; }
         GenericRepository<User> UserRepository { get; }
         GenericRepository<UserBeehive> UserBeehiveRepository { get; }
 

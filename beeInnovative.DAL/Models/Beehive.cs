@@ -15,6 +15,7 @@ namespace beeInnovative.DAL.Models
         public float Longitude { get; set; }
         public string IotId { get; set; }
 
+        public ICollection<UserBeehive>? UserBeehives { get; set; }
         public ICollection<HornetDetection>? HornetDetections { get; set; }
 
         public Beehive()

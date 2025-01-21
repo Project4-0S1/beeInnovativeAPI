@@ -10,8 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString
     = builder.Configuration.GetConnectionString("DefaultConnection");
-    builder.Services.AddDbContext<BeeInnovativeContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<BeeInnovativeContext>(options =>
+options.UseSqlServer(connectionString));
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:4200", "https://beeinnovative.netlify.app") // Allow your Angular app
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+});
 
 // Add CORS policy
 builder.Services.AddCors(options =>

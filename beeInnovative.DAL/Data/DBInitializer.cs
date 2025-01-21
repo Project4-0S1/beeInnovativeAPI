@@ -39,8 +39,28 @@ namespace beeInnovative.DAL.Data
                 IotId = "2",
             };
 
+            Beehive b3 = new Beehive()
+            {
+                //Id = 1,
+                BeehiveName = "",
+                Latitude = 51.161736776231265f,
+                Longitude = 5.003174937424427f,
+                IotId = "3",
+            };
+
+            Beehive b4 = new Beehive()
+            {
+                //Id = 2,
+                BeehiveName = "",
+                Latitude = 51.134813494164845f,
+                Longitude = 4.941647521836946f,
+                IotId = "4",
+            };
+
             context.Add(b1);
             context.Add(b2);
+            context.Add(b3);
+            context.Add(b4);
 
             //Add Colors
             Color c1 = new Color()

@@ -24,11 +24,22 @@ namespace beeInnovative.Controllers
 
         // GET: api/Beehives
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Beehive>>> GetBeehives()
+        public async Task<ActionResult<IEnumerable<Beehive>>> GetBeehives(
+    [FromQuery] bool? filterByUserBeehives = null)
         {
-            var beehives = await _uow.BeehiveRepository.GetAllAsync(b => b.HornetDetections);
-            return beehives.ToList();
+            // Get all beehives along with UserBeehives and HornetDetections
+            var beehives = await _uow.BeehiveRepository.GetAllAsync(b => b.HornetDetections, b => b.UserBeehives);
+
+            // Apply filtering if the flag is set
+            if (filterByUserBeehives.HasValue && filterByUserBeehives.Value)
+            {
+                // Only return beehives that do not have any associated UserBeehives
+                beehives = beehives.Where(b => b.UserBeehives == null || !b.UserBeehives.Any()).ToList();
+            }
+
+            return Ok(beehives);
         }
+
 
         // GET: api/Beehives/5
         [HttpGet("{id}")]

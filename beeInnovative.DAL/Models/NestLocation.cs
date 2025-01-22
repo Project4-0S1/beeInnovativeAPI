@@ -10,8 +10,8 @@ namespace beeInnovative.DAL.Models
     {
         public int Id { get; set; }
         public int StatusId { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public Status? status { get; set; }
 

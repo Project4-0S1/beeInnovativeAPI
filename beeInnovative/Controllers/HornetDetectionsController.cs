@@ -83,13 +83,13 @@ namespace beeInnovative.Controllers
         {
             IEnumerable<HornetDetection> hornetDetectionList = await _uow.HornetDetectionRepository.GetAllAsync(b => b.Beehive);
             Beehive beehive = await _uow.BeehiveRepository.GetByIDAsync(hornetDetection.BeehiveId);
-            hornetDetectionList = hornetDetectionList.Where(b => b.BeehiveId == hornetDetection.BeehiveId).Where(h => h.HornetId == hornetDetection.HornetId).OrderBy(h => h.DetectionTimestamp);
+            IEnumerable<HornetDetection>  filteredHornetDetectionList = hornetDetectionList.Where(b => b.BeehiveId == hornetDetection.BeehiveId).Where(h => h.HornetId == hornetDetection.HornetId).OrderBy(h => h.DetectionTimestamp);
 
             if (hornetDetectionList.Count() > 0) {
                 DateTime newest = new DateTime(2023, 3, 20);
                 HornetDetection hornetDetectionCalculation = new HornetDetection();
 
-                foreach (HornetDetection hornetDetectionL in hornetDetectionList)
+                foreach (HornetDetection hornetDetectionL in filteredHornetDetectionList)
                 {
                     if (hornetDetectionL.DetectionTimestamp > newest)
                     {
@@ -102,32 +102,29 @@ namespace beeInnovative.Controllers
                 float distance = (float)(timeBetween * (30 / 3.6));
 
                 if (distance < 2050) {
-                    float angleRad = (float)(hornetDetection.Direction * Math.PI / 180);
-                    float latitudeRad = (float)(beehive.Latitude * Math.PI / 180);
-                    float longitudeRad = (float)(beehive.Longitude * Math.PI / 180);
-
-                    float earthRadius = 6371000;
-
-                    float newLatitudeRad = (float)Math.Asin(
-                        Math.Sin(latitudeRad) * Math.Cos(distance / earthRadius) +
-                        Math.Cos(latitudeRad) * Math.Sin(distance / earthRadius) * Math.Cos(angleRad)
-                    );
-
-                    float newLongitudeRad = (float)(longitudeRad + Math.Atan2(
-                        Math.Sin(angleRad) * Math.Sin(distance / earthRadius) * Math.Cos(latitudeRad),
-                        Math.Cos(distance / earthRadius) - Math.Sin(latitudeRad) * Math.Sin(newLatitudeRad)
-                    ));
-
-                    // Convert the results back to degrees
-                    float newLatitude = (float)(newLatitudeRad * 180 / Math.PI);
-                    float newLongitude = (float)(newLongitudeRad * 180 / Math.PI);
-
-                    EstimatedNestLocation estimatedNestLocation = new EstimatedNestLocation();
-                    estimatedNestLocation.EstimatedLatitude = newLatitude;
-                    estimatedNestLocation.EstimatedLongitude = newLongitude;
-                    estimatedNestLocation.HornetId = hornetDetection.HornetId;
-
+                    EstimatedNestLocation estimatedNestLocation = hornetDetection.CalculateEstimatedNestLocation(hornetDetection, beehive, distance);
+                    IEnumerable<EstimatedNestLocation> estimatedNestLocationsList = await _uow.EstimatedNestLocationRepository.GetAllAsync();
                     _uow.EstimatedNestLocationRepository.Insert(estimatedNestLocation);
+
+                    foreach (EstimatedNestLocation estimatedNest in estimatedNestLocationsList)
+                    {
+                        double distanceBetween = hornetDetection.CalculateDistance(
+                            estimatedNestLocation.EstimatedLatitude,
+                            estimatedNestLocation.EstimatedLongitude,
+                            estimatedNest.EstimatedLatitude,
+                            estimatedNest.EstimatedLongitude
+                        );
+
+                        if (distanceBetween <= 120) // controleer of binnen 80 meter
+                        {
+                            NestLocation nestLocation = hornetDetection.CalculateNestLocation([estimatedNest, estimatedNestLocation]);
+                            await _uow.SaveAsync();
+                            _uow.EstimatedNestLocationRepository.Delete(estimatedNest.Id);
+                            _uow.EstimatedNestLocationRepository.Delete(estimatedNestLocation.Id);
+                            _uow.NestLocationRepository.Insert(nestLocation);
+                            await _uow.SaveAsync();
+                        }
+                    }
                 }
             }
 
@@ -156,6 +153,6 @@ namespace beeInnovative.Controllers
         private bool HornetDetectionExists(int id)
         {
             return _uow.HornetDetectionRepository.Get(e => e.Id == id).Any();
-        }
+        }        
     }
 }

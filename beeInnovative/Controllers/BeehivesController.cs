@@ -55,6 +55,20 @@ namespace beeInnovative.Controllers
             return beehive;
         }
 
+        [HttpGet("iot/{iotId}")]
+        public async Task<ActionResult<Beehive>> GetBeehiveByIotId(string iotId)
+        {
+            IEnumerable<Beehive> beehives = await _uow.BeehiveRepository.GetAllAsync();
+            Beehive beehive = beehives.Where(b => b.IotId == iotId).First();
+
+            if (beehive == null)
+            {
+                return NotFound();
+            }
+
+            return beehive;
+        }
+
         // PUT: api/Beehives/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

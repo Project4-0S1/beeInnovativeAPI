@@ -172,6 +172,42 @@ namespace beeInnovative.DAL.Data
             context.Add(nl2);
 
             context.SaveChanges();
+
+            NestLocation dnl1 = new NestLocation()
+            {
+                //Id = 1,
+                Latitude = 51.16021787106364f,
+                Longitude = 4.981450191825334f,
+                StatusId = 1
+            };
+            NestLocation dnl2 = new NestLocation()
+            {
+                //Id = 2,
+                Latitude = 51.17820318928493f,
+                Longitude = 4.996249362951717f,
+                StatusId = 2
+            };
+            NestLocation dnl3 = new NestLocation()
+            {
+                //Id = 3,
+                Latitude = 51.18178282293114f,
+                Longitude = 4.954444107376311f,
+                StatusId = 3
+            };
+            NestLocation dnl4 = new NestLocation()
+            {
+                //Id = 4,
+                Latitude = 51.14696312726804f,
+                Longitude = 4.969484197168675f,
+                StatusId = 1
+            };
+
+            context.Add(dnl1);
+            context.Add(dnl2);
+            context.Add(dnl3);
+            context.Add(dnl4);
+
+            context.SaveChanges();
         }
     }
 }

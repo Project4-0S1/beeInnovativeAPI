@@ -25,8 +25,8 @@ namespace beeInnovative.DAL.Data
             {
                 //Id = 1,
                 BeehiveName = "De C",
-                Latitude = 51.164120751116435f,
-                Longitude = 4.961838518509023f,
+                Latitude = 51.164120751116435,
+                Longitude = 4.961838518509023,
                 IotId = "1",
             };
 
@@ -34,8 +34,8 @@ namespace beeInnovative.DAL.Data
             {
                 //Id = 2,
                 BeehiveName = "Pizza Hut",
-                Latitude = 51.14956154963047f,
-                Longitude = 4.964806904144326f,
+                Latitude = 51.14956154963047,
+                Longitude = 4.964806904144326,
                 IotId = "2",
             };
 
@@ -43,8 +43,8 @@ namespace beeInnovative.DAL.Data
             {
                 //Id = 1,
                 BeehiveName = "",
-                Latitude = 51.161736776231265f,
-                Longitude = 5.003174937424427f,
+                Latitude = 51.161736776231265,
+                Longitude = 5.003174937424427,
                 IotId = "3",
             };
 
@@ -52,8 +52,8 @@ namespace beeInnovative.DAL.Data
             {
                 //Id = 2,
                 BeehiveName = "",
-                Latitude = 51.134813494164845f,
-                Longitude = 4.941647521836946f,
+                Latitude = 51.134813494164845,
+                Longitude = 4.941647521836946,
                 IotId = "4",
             };
 
@@ -156,16 +156,16 @@ namespace beeInnovative.DAL.Data
             EstimatedNestLocation nl1 = new EstimatedNestLocation()
             {
                 //Id = 1,
-                EstimatedLatitude = 51.16080291398481f,
-                EstimatedLongitude = 4.9644732260095275f,
+                EstimatedLatitude = 51.16080291398481,
+                EstimatedLongitude = 4.9644732260095275,
                 HornetId = 1,
             };
 
             EstimatedNestLocation nl2 = new EstimatedNestLocation()
             {
                 //Id = 2,
-                EstimatedLatitude = 51.170209175807024f,
-                EstimatedLongitude = 4.968067403732371f,
+                EstimatedLatitude = 51.170209175807024,
+                EstimatedLongitude = 4.968067403732371,
                 HornetId = 2,
             };
             context.Add(nl1);
@@ -176,29 +176,29 @@ namespace beeInnovative.DAL.Data
             NestLocation dnl1 = new NestLocation()
             {
                 //Id = 1,
-                Latitude = 51.16021787106364f,
-                Longitude = 4.981450191825334f,
+                Latitude = 51.16021787106364,
+                Longitude = 4.981450191825334,
                 StatusId = 1
             };
             NestLocation dnl2 = new NestLocation()
             {
                 //Id = 2,
-                Latitude = 51.17820318928493f,
-                Longitude = 4.996249362951717f,
+                Latitude = 51.17820318928493,
+                Longitude = 4.996249362951717,
                 StatusId = 2
             };
             NestLocation dnl3 = new NestLocation()
             {
                 //Id = 3,
-                Latitude = 51.18178282293114f,
-                Longitude = 4.954444107376311f,
+                Latitude = 51.18178282293114,
+                Longitude = 4.954444107376311,
                 StatusId = 3
             };
             NestLocation dnl4 = new NestLocation()
             {
                 //Id = 4,
-                Latitude = 51.14696312726804f,
-                Longitude = 4.969484197168675f,
+                Latitude = 51.14696312726804,
+                Longitude = 4.969484197168675,
                 StatusId = 1
             };
 

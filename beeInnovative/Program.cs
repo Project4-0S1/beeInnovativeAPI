@@ -47,6 +47,9 @@ builder.Services.ConfigureSwaggerGen(setup =>
 
 var app = builder.Build();
 
+// Use CORS
+app.UseCors("AllowSpecificOrigin");
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

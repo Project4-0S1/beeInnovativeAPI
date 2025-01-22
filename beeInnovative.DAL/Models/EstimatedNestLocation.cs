@@ -9,8 +9,8 @@ namespace beeInnovative.DAL.Models
     public class EstimatedNestLocation
     {
         public int Id { get; set; }
-        public float EstimatedLatitude { get; set; }
-        public float EstimatedLongitude { get; set; }
+        public double EstimatedLatitude { get; set; }
+        public double EstimatedLongitude { get; set; }
         public int? HornetId { get; set; }
 
         public Hornet? Hornet { get; set; }

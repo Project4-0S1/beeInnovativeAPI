@@ -152,7 +152,7 @@ namespace beeInnovative.Controllers
                     hornetDetectionCorrect.DetectionTimestamp = hornetDetection.DetectionTimestamp;
                     hornetDetectionCorrect.IsMarked = hornetDetection.IsMarked;
                     hornetDetectionCorrect.Direction = hornetDetection.Direction;
-                    hornetDetectionCorrect.HornetId = hornetDetection.Id;
+                    hornetDetectionCorrect.HornetId = hornetDetection.HornetId;
                     hornetDetectionCorrect.BeehiveId = beehive.Id;
 
                     IEnumerable<HornetDetection> filteredHornetDetectionList = hornetDetectionList.Where(b => b.BeehiveId == hornetDetectionCorrect.BeehiveId).Where(h => h.HornetId == hornetDetection.HornetId).OrderBy(h => h.DetectionTimestamp);

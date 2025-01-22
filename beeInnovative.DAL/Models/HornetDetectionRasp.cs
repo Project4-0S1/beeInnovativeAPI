@@ -14,9 +14,6 @@ namespace beeInnovative.DAL.Models
         public int Direction { get; set; }
         public int HornetId { get; set; }
         public string BeehiveId { get; set; }
-        
-        public Hornet? Hornet { get; set; }
-        public Beehive? Beehive { get; set; }
 
         public EstimatedNestLocation CalculateEstimatedNestLocation(HornetDetection hornetDetection, Beehive beehive, float distance) {
             double angleRad = (hornetDetection.Direction + beehive.Angle ?? 0) * (Math.PI / 180);

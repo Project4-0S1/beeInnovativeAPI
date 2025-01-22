@@ -137,14 +137,25 @@ namespace beeInnovative.Controllers
         // POST: api/HornetDetections
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("mutiple")]
-        public async Task<ActionResult<IEnumerable<HornetDetection>>> MultiplePostHornetDetection(IEnumerable<HornetDetection> hornetDetections)
+        public async Task<ActionResult<IEnumerable<HornetDetectionRasp>>> MultiplePostHornetDetection(IEnumerable<HornetDetectionRasp> hornetDetections)
         {
             if (hornetDetections.Count() > 1) {
-                foreach (HornetDetection hornetDetection in hornetDetections)
+
+                foreach (HornetDetectionRasp hornetDetection in hornetDetections)
                 {
                     IEnumerable<HornetDetection> hornetDetectionList = await _uow.HornetDetectionRepository.GetAllAsync(b => b.Beehive);
-                    Beehive beehive = await _uow.BeehiveRepository.GetByIDAsync(hornetDetection.BeehiveId);
-                    IEnumerable<HornetDetection> filteredHornetDetectionList = hornetDetectionList.Where(b => b.BeehiveId == hornetDetection.BeehiveId).Where(h => h.HornetId == hornetDetection.HornetId).OrderBy(h => h.DetectionTimestamp);
+                    IEnumerable<Beehive> beehives = await _uow.BeehiveRepository.GetAllAsync();
+
+                    Beehive beehive = beehives.Where(b => b.IotId == hornetDetection.BeehiveId).First();
+
+                    HornetDetection hornetDetectionCorrect = new HornetDetection();
+                    hornetDetectionCorrect.DetectionTimestamp = hornetDetection.DetectionTimestamp;
+                    hornetDetectionCorrect.IsMarked = hornetDetection.IsMarked;
+                    hornetDetectionCorrect.Direction = hornetDetection.Direction;
+                    hornetDetectionCorrect.HornetId = hornetDetection.Id;
+                    hornetDetectionCorrect.BeehiveId = beehive.Id;
+
+                    IEnumerable<HornetDetection> filteredHornetDetectionList = hornetDetectionList.Where(b => b.BeehiveId == hornetDetectionCorrect.BeehiveId).Where(h => h.HornetId == hornetDetection.HornetId).OrderBy(h => h.DetectionTimestamp);
 
                     if (hornetDetectionList.Count() > 0)
                     {
@@ -165,7 +176,7 @@ namespace beeInnovative.Controllers
 
                         if (distance < 2050)
                         {
-                            EstimatedNestLocation estimatedNestLocation = hornetDetection.CalculateEstimatedNestLocation(hornetDetection, beehive, distance);
+                            EstimatedNestLocation estimatedNestLocation = hornetDetection.CalculateEstimatedNestLocation(hornetDetectionCorrect, beehive, distance);
                             IEnumerable<EstimatedNestLocation> estimatedNestLocationsList = await _uow.EstimatedNestLocationRepository.GetAllAsync();
                             _uow.EstimatedNestLocationRepository.Insert(estimatedNestLocation);
 
@@ -191,7 +202,7 @@ namespace beeInnovative.Controllers
                         }
                     }
 
-                    _uow.HornetDetectionRepository.Insert(hornetDetection);
+                    _uow.HornetDetectionRepository.Insert(hornetDetectionCorrect);
                     await _uow.SaveAsync();
                 }
 

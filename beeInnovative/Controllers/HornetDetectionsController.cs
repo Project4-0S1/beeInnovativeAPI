@@ -136,7 +136,7 @@ namespace beeInnovative.Controllers
 
         // POST: api/HornetDetections
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("mutiple")]
+        [HttpPost("multiple")]
         public async Task<ActionResult<IEnumerable<HornetDetectionRasp>>> MultiplePostHornetDetection(IEnumerable<HornetDetectionRasp> hornetDetections)
         {
             if (hornetDetections.Count() > 1) {

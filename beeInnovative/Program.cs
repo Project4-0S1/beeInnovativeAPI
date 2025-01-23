@@ -17,15 +17,6 @@ options.UseSqlServer(connectionString));
 builder.Services.AddAuthentication().AddJwtBearer();
 builder.Services.AddAuthorization();
 
-// Add CORS policy
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowSpecificOrigin",
-//        builder => builder.WithOrigins("http://localhost:4200", "https://beeinnovative.netlify.app") // Allow your Angular app
-//                          .AllowAnyHeader()
-//                          .AllowAnyMethod());
-//});
-
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>

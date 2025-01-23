@@ -14,17 +14,17 @@ var connectionString
 builder.Services.AddDbContext<BeeInnovativeContext>(options =>
 options.UseSqlServer(connectionString));
 
-//builder.Services.AddAuthentication().AddJwtBearer();
-//builder.Services.AddAuthorization();
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
 
 // Add CORS policy
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:4200", "https://beeinnovative.netlify.app") // Allow your Angular app
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin",
+//        builder => builder.WithOrigins("http://localhost:4200", "https://beeinnovative.netlify.app") // Allow your Angular app
+//                          .AllowAnyHeader()
+//                          .AllowAnyMethod());
+//});
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -48,7 +48,12 @@ builder.Services.ConfigureSwaggerGen(setup =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowSpecificOrigin");
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://beeinnovative.netlify.app");
+});
 
 app.UseSwagger();
 app.UseSwaggerUI();

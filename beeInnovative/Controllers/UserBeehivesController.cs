@@ -9,9 +9,12 @@ using beeInnovative.DAL.Data;
 using beeInnovative.DAL.Models;
 using beeInnovative.DAL.Service;
 using System.Drawing;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace beeInnovative.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserBeehivesController : ControllerBase
@@ -27,7 +30,13 @@ namespace beeInnovative.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserBeehive>>> GetUserBeehives()
         {
-            var userBeehives = await _uow.UserBeehiveRepository.GetAllAsync(ub => ub.Beehive, ub => ub.User);
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            IEnumerable<User> users = await _uow.UserRepository.GetAllAsync();
+            User user = users.Where(u => u.UserSubTag == userId).First();
+
+            IEnumerable<UserBeehive> userBeehives = await _uow.UserBeehiveRepository.GetAllAsync(ub => ub.Beehive, ub => ub.User);
+            userBeehives = userBeehives.Where(u => u.User.UserSubTag == user.UserSubTag);
+
             return userBeehives.ToList();
         }
 

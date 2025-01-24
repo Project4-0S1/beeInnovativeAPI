@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace beeInnovative.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class HornetsController : ControllerBase

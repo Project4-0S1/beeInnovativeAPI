@@ -9,9 +9,11 @@ using beeInnovative.DAL.Data;
 using beeInnovative.DAL.Models;
 using beeInnovative.DAL.Service;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace beeInnovative.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

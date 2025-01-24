@@ -96,7 +96,6 @@ namespace beeInnovative.Controllers
 
             userBeehive.UserId = user.Id;
 
-
             _uow.UserBeehiveRepository.Insert(userBeehive);
             await _uow.SaveAsync();
 

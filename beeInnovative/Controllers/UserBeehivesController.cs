@@ -90,6 +90,12 @@ namespace beeInnovative.Controllers
         [HttpPost]
         public async Task<ActionResult<UserBeehive>> PostUserBeehive(UserBeehive userBeehive)
         {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            IEnumerable<User> users = await _uow.UserRepository.GetAllAsync();
+            User user = users.Where(u => u.UserSubTag == userId).First();
+
+            userBeehive.UserId = user.Id;
+
             _uow.UserBeehiveRepository.Insert(userBeehive);
             await _uow.SaveAsync();
 

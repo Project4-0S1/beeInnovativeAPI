@@ -112,8 +112,7 @@ namespace beeInnovative.Controllers
             foreach(Beehive beehiveOne in beehivesList)
             {
                 if (beehiveOne.IotId == beehive.IotId) {
-                    _uow.BeehiveRepository.Update(beehive);
-                    await _uow.SaveAsync();
+                    return BadRequest();
                 }
             }
 

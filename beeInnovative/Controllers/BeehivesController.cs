@@ -73,33 +73,48 @@ namespace beeInnovative.Controllers
 
         // PUT: api/Beehives/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBeehive(int id, Beehive beehive)
+        [HttpPut("{iotId}")]
+        public async Task<IActionResult> PutBeehive(string iotId, Beehive beehive)
         {
-            if (id != beehive.Id)
-            {
-                return BadRequest();
-            }
-
-            _uow.BeehiveRepository.Update(beehive);
-
+            IEnumerable<Beehive> beehives = await _uow.BeehiveRepository.GetAllAsync();
             try
             {
-                await _uow.SaveAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BeehiveExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                Beehive beehiveFound = beehives.Where(b => b.IotId == iotId).First();
+                beehiveFound.BeehiveName = beehive.BeehiveName;
+                beehiveFound.Angle = beehive.Angle;
+                beehiveFound.Latitude = beehive.Latitude;
+                beehiveFound.Longitude = beehive.Longitude;
+                beehiveFound.lastCall = DateTime.Now;
+                beehiveFound.IotId = beehive.IotId;
 
-            return NoContent();
+                if (iotId != beehive.IotId)
+                {
+                    return BadRequest();
+                }
+
+                _uow.BeehiveRepository.Update(beehiveFound);
+
+                try
+                {
+                    await _uow.SaveAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BeehiveExists(beehiveFound.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return NoContent();
+            }
+            catch (Exception) { 
+                return NotFound("Geen beehive gevonden met het gegeven IotId");
+            }            
         }
 
         // POST: api/Beehives

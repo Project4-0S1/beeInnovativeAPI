@@ -10,6 +10,7 @@ using beeInnovative.DAL.Models;
 using beeInnovative.DAL.Service;
 using System.Drawing;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace beeInnovative.Controllers
 {
@@ -27,10 +28,19 @@ namespace beeInnovative.Controllers
 
         // GET: api/HornetDetections
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HornetDetection>>> GetHornetDetections()
+        public async Task<ActionResult<IEnumerable<HornetDetection>>> GetHornetDetections(int? beehiveId = null)
         {
-            var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync(hd => hd.Hornet, b => b.Beehive);
-            return hornetDetections.ToList();
+            if (beehiveId.HasValue)
+            {
+                var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync(hd => hd.Hornet, b => b.Beehive);
+                hornetDetections = hornetDetections.Where(h => h.BeehiveId == beehiveId);
+                return hornetDetections.ToList();
+            }
+            else
+            {
+                var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync(hd => hd.Hornet, b => b.Beehive);
+                return hornetDetections.ToList();
+            }
         }
 
         // GET: api/HornetDetections/5
@@ -141,7 +151,7 @@ namespace beeInnovative.Controllers
         [HttpPost("multiple")]
         public async Task<ActionResult<IEnumerable<HornetDetectionRasp>>> MultiplePostHornetDetection(IEnumerable<HornetDetectionRasp> hornetDetections)
         {
-            if (hornetDetections.Count() > 1) {
+            if (hornetDetections.Count() > 0) {
 
                 foreach (HornetDetectionRasp hornetDetection in hornetDetections)
                 {

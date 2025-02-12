@@ -84,7 +84,7 @@ namespace beeInnovative.Controllers
                 beehiveFound.Angle = beehive.Angle;
                 beehiveFound.Latitude = beehive.Latitude;
                 beehiveFound.Longitude = beehive.Longitude;
-                beehiveFound.lastCall = beehive.lastCall;
+                beehiveFound.lastCall = DateTime.Now;
                 beehiveFound.IotId = beehive.IotId;
 
                 if (iotId != beehive.IotId)

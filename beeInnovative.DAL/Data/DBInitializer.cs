@@ -28,6 +28,7 @@ namespace beeInnovative.DAL.Data
                 Latitude = 51.164120751116435,
                 Longitude = 4.961838518509023,
                 IotId = "1",
+                lastCall = DateTime.Now,
             };
 
             Beehive b2 = new Beehive()
@@ -37,6 +38,7 @@ namespace beeInnovative.DAL.Data
                 Latitude = 51.14956154963047,
                 Longitude = 4.964806904144326,
                 IotId = "2",
+                lastCall = DateTime.Now,
             };
 
             Beehive b3 = new Beehive()
@@ -46,6 +48,7 @@ namespace beeInnovative.DAL.Data
                 Latitude = 51.161736776231265,
                 Longitude = 5.003174937424427,
                 IotId = "3",
+                lastCall = DateTime.Now,
             };
 
             Beehive b4 = new Beehive()
@@ -55,6 +58,7 @@ namespace beeInnovative.DAL.Data
                 Latitude = 51.134813494164845,
                 Longitude = 4.941647521836946,
                 IotId = "4",
+                lastCall = DateTime.Now,
             };
 
             context.Add(b1);

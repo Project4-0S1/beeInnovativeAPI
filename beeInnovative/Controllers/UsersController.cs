@@ -47,6 +47,20 @@ namespace beeInnovative.Controllers
             return user;
         }
 
+        [HttpGet("userSubTag/{tag}")]
+        public async Task<ActionResult<User>> GetUserByTag(string tag)
+        {
+            IEnumerable<User> users = await _uow.UserRepository.GetAllAsync();
+            User user = users.Where(b => b.UserSubTag == tag).First();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

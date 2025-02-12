@@ -151,7 +151,7 @@ namespace beeInnovative.Controllers
         [HttpPost("multiple")]
         public async Task<ActionResult<IEnumerable<HornetDetectionRasp>>> MultiplePostHornetDetection(IEnumerable<HornetDetectionRasp> hornetDetections)
         {
-            if (hornetDetections.Count() > 1) {
+            if (hornetDetections.Count() > 0) {
 
                 foreach (HornetDetectionRasp hornetDetection in hornetDetections)
                 {

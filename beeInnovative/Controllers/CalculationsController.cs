@@ -24,6 +24,58 @@ namespace beeInnovative.Controllers
             _uow = uow;
         }
 
+        // GET: api/Colors
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Calculation>>> GetCalculations()
+        {
+            var calculations = await _uow.CalculationRepository.GetAllAsync(c => c.Hornet);
+            return calculations.ToList();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Calculation>> GetCalculations(int id)
+        {
+            var calculation = await _uow.CalculationRepository.GetByIDAsync(id);
+
+            if (calculation == null)
+            {
+                return NotFound();
+            }
+
+            return calculation;
+        }
+
+        // PUT: api/Colors/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutColor(int id, Calculation calculation)
+        {
+            if (id != calculation.Id)
+            {
+                return BadRequest();
+            }
+
+            _uow.CalculationRepository.Update(calculation);
+
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CalculationExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/Calculations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -145,6 +197,26 @@ namespace beeInnovative.Controllers
         private double DegreesToRadians(double degrees)
         {
             return degrees * (Math.PI / 180);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCalculation(int id)
+        {
+            var calculation = await _uow.CalculationRepository.GetByIDAsync(id);
+            if (calculation == null)
+            {
+                return NotFound();
+            }
+
+            _uow.CalculationRepository.Delete(id);
+            await _uow.SaveAsync();
+
+            return NoContent();
+        }
+
+        private bool CalculationExists(int id)
+        {
+            return _uow.CalculationRepository.Get(e => e.Id == id).Any();
         }
     }
 }

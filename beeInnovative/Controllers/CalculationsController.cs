@@ -76,7 +76,38 @@ namespace beeInnovative.Controllers
 
                 if (distanceBetween <= 120) // controleer of binnen 80 meter
                 {
-                    NestLocation nestLocation = CalculateNestLocation([estimatedNest, estimatedNestLocation]);
+                    var cartesianCoordinates = estimatedNestLocationsList.Select(obj =>
+                    {
+                        double latRad = DegreesToRadians(obj.EstimatedLatitude);
+                        double lonRad = DegreesToRadians(obj.EstimatedLongitude);
+
+                        return new
+                        {
+                            X = Math.Cos(latRad) * Math.Cos(lonRad),
+                            Y = Math.Cos(latRad) * Math.Sin(lonRad),
+                            Z = Math.Sin(latRad)
+                        };
+                    });
+
+                    // Stap 2: Bereken het gemiddelde van de coördinaten
+                    double xAvg = cartesianCoordinates.Average(coord => coord.X);
+                    double yAvg = cartesianCoordinates.Average(coord => coord.Y);
+                    double zAvg = cartesianCoordinates.Average(coord => coord.Z);
+
+                    // Stap 3: Normaliseer de gemiddelde coördinaten
+                    double magnitude = Math.Sqrt(xAvg * xAvg + yAvg * yAvg + zAvg * zAvg);
+                    double xNorm = xAvg / magnitude;
+                    double yNorm = yAvg / magnitude;
+                    double zNorm = zAvg / magnitude;
+
+                    // Stap 4: Zet de genormaliseerde coördinaten terug naar latitude/longitude
+                    double centroidLatitude = RadiansToDegrees(Math.Asin(zNorm));
+                    double centroidLongitude = RadiansToDegrees(Math.Atan2(yNorm, xNorm));
+
+                    NestLocation nestLocation = new NestLocation();
+                    nestLocation.Latitude = (float)centroidLatitude;
+                    nestLocation.Longitude = (float)centroidLongitude;
+                    nestLocation.StatusId = 1;
                     await _uow.SaveAsync();
                     _uow.EstimatedNestLocationRepository.Delete(estimatedNest.Id);
                     _uow.EstimatedNestLocationRepository.Delete(estimatedNestLocation.Id);
@@ -115,74 +146,5 @@ namespace beeInnovative.Controllers
         {
             return degrees * (Math.PI / 180);
         }
-
-        public NestLocation CalculateNestLocation(IEnumerable<EstimatedNestLocation> estimatedNestLocationsList)
-        {
-            var cartesianCoordinates = estimatedNestLocationsList.Select(obj =>
-            {
-                double latRad = DegreesToRadians(obj.EstimatedLatitude);
-                double lonRad = DegreesToRadians(obj.EstimatedLongitude);
-
-                return new
-                {
-                    X = Math.Cos(latRad) * Math.Cos(lonRad),
-                    Y = Math.Cos(latRad) * Math.Sin(lonRad),
-                    Z = Math.Sin(latRad)
-                };
-            });
-
-            // Stap 2: Bereken het gemiddelde van de coördinaten
-            double xAvg = cartesianCoordinates.Average(coord => coord.X);
-            double yAvg = cartesianCoordinates.Average(coord => coord.Y);
-            double zAvg = cartesianCoordinates.Average(coord => coord.Z);
-
-            // Stap 3: Normaliseer de gemiddelde coördinaten
-            double magnitude = Math.Sqrt(xAvg * xAvg + yAvg * yAvg + zAvg * zAvg);
-            double xNorm = xAvg / magnitude;
-            double yNorm = yAvg / magnitude;
-            double zNorm = zAvg / magnitude;
-
-            // Stap 4: Zet de genormaliseerde coördinaten terug naar latitude/longitude
-            double centroidLatitude = RadiansToDegrees(Math.Asin(zNorm));
-            double centroidLongitude = RadiansToDegrees(Math.Atan2(yNorm, xNorm));
-
-            NestLocation nestLocation = new NestLocation();
-            nestLocation.Latitude = (float)centroidLatitude;
-            nestLocation.Longitude = (float)centroidLongitude;
-            nestLocation.StatusId = 1;
-
-            return nestLocation;
-        }
-
-        public EstimatedNestLocation CalculateEstimatedNestLocation(HornetDetection hornetDetection, Beehive beehive, float distance)
-        {
-            double angleRad = (hornetDetection.Direction + beehive.Angle ?? 0) * (Math.PI / 180);
-            double latitudeRad = beehive.Latitude * Math.PI / 180;
-            double longitudeRad = beehive.Longitude * Math.PI / 180;
-
-            float earthRadius = 6371000;
-
-            double newLatitudeRad = Math.Asin(
-                Math.Sin(latitudeRad) * Math.Cos(distance / earthRadius) +
-                Math.Cos(latitudeRad) * Math.Sin(distance / earthRadius) * Math.Cos(angleRad)
-            );
-
-            double newLongitudeRad = longitudeRad + Math.Atan2(
-                Math.Sin(angleRad) * Math.Sin(distance / earthRadius) * Math.Cos(latitudeRad),
-                Math.Cos(distance / earthRadius) - Math.Sin(latitudeRad) * Math.Sin(newLatitudeRad)
-            );
-
-            // Convert the results back to degrees
-            double newLatitude = newLatitudeRad * 180 / Math.PI;
-            double newLongitude = newLongitudeRad * 180 / Math.PI;
-
-            EstimatedNestLocation estimatedNestLocation = new EstimatedNestLocation();
-            estimatedNestLocation.EstimatedLatitude = newLatitude;
-            estimatedNestLocation.EstimatedLongitude = newLongitude;
-            estimatedNestLocation.HornetId = hornetDetection.HornetId;
-
-            return estimatedNestLocation;
-        }
-
     }
 }

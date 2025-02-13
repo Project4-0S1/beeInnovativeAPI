@@ -28,7 +28,7 @@ namespace beeInnovative.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Calculation>>> GetCalculations()
         {
-            var calculations = await _uow.CalculationRepository.GetAllAsync(c => c.Hornet);
+            var calculations = await _uow.CalculationRepository.GetAllAsync();
             return calculations.ToList();
         }
 

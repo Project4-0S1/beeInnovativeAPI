@@ -26,6 +26,8 @@ namespace beeInnovative.DAL.Data
         public DbSet<EstimatedNestLocation> EstimatedNestLocation { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserBeehive> UserBeehives { get; set; }
+        public DbSet<Calculation> Calculations { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +40,7 @@ namespace beeInnovative.DAL.Data
             modelBuilder.Entity<EstimatedNestLocation>().ToTable("EstimatedNestLocation");
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<UserBeehive>().ToTable("UserBeehive");
+            modelBuilder.Entity<Calculation>().ToTable("Calculation");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

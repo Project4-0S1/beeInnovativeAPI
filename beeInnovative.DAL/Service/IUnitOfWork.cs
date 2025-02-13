@@ -20,6 +20,7 @@ namespace beeInnovative.DAL.Service
         GenericRepository<EstimatedNestLocation> EstimatedNestLocationRepository { get; }
         GenericRepository<User> UserRepository { get; }
         GenericRepository<UserBeehive> UserBeehiveRepository { get; }
+        GenericRepository<Calculation> CalculationRepository { get; }
 
         Task SaveAsync();
     }

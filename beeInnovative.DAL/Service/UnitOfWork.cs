@@ -21,6 +21,7 @@ namespace beeInnovative.DAL
         private GenericRepository<EstimatedNestLocation> estimatedNestLocationRepository;
         private GenericRepository<User> userRepository;
         private GenericRepository<UserBeehive> userBeehiveRepository;
+        private GenericRepository<Calculation> calculationRepository;
 
         public UnitOfWork(BeeInnovativeContext context)
         {
@@ -132,6 +133,18 @@ namespace beeInnovative.DAL
                     userBeehiveRepository = new GenericRepository<UserBeehive>(_context);
                 }
                 return userBeehiveRepository;
+            }
+        }
+
+        public GenericRepository<Calculation> CalculationRepository
+        {
+            get
+            {
+                if (calculationRepository== null)
+                {
+                    calculationRepository = new GenericRepository<Calculation>(_context);
+                }
+                return calculationRepository;
             }
         }
 

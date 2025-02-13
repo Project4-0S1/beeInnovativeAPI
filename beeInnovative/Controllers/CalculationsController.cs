@@ -170,6 +170,8 @@ namespace beeInnovative.Controllers
 
             return Ok();
         }
+
+        [NonAction]
         public double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
             const double EarthRadius = 6371e3; // straal van de aarde in meters
@@ -189,11 +191,13 @@ namespace beeInnovative.Controllers
             return EarthRadius * c; // afstand in meters
         }
 
+        [NonAction]
         private double RadiansToDegrees(double radians)
         {
             return radians * 180.0 / Math.PI;
         }
 
+        [NonAction]
         private double DegreesToRadians(double degrees)
         {
             return degrees * (Math.PI / 180);
@@ -214,6 +218,7 @@ namespace beeInnovative.Controllers
             return NoContent();
         }
 
+        [NonAction]
         private bool CalculationExists(int id)
         {
             return _uow.CalculationRepository.Get(e => e.Id == id).Any();

@@ -1,4 +1,21 @@
-# Branching Strategy for Web App and API Development
+# BeeInnovative API
+
+Web APP: https://beeinnovative.netlify.app/
+<br>
+API: https://beeinnovative.azurewebsites.net/api/
+
+## Content
+
+We have 2 projects in or dotnet solution. One with the Controllers
+and the other one with the data, models and services.
+- Controllers (File with all the endpoints): We worked with a Unit of Work this
+because it gives you a centralized data acces logic and reduced database calls.
+- Data: It contains 2 files. One gives the data thats has to be in the db on create. The other
+one ensures the tables are created
+- Models: all model files used in the controllers.
+- Services: All the files to setup the Unit of Work and the repositorys to acces the data.
+
+## Branching Strategy for Web App and API Development
 
 ## Overview
 We will adopt a feature-based branching strategy to streamline the development of our web app and API. This ensures organized collaboration, efficient testing, and easy integration.

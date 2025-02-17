@@ -33,7 +33,7 @@ namespace beeInnovative.Controllers
             if (beehiveId.HasValue)
             {
                 // Fetch hornet detections filtered by the specified beehive ID
-                var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync(hd => hd.Hornet, b => b.Beehive);
+                var hornetDetections = await _uow.HornetDetectionRepository.GetAllAsync(hd => hd.Hornet, b => b.Beehive, c => c.Hornet.Color);
                 hornetDetections = hornetDetections.Where(h => h.BeehiveId == beehiveId);
                 return hornetDetections.ToList();
             }
